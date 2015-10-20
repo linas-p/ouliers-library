@@ -2,6 +2,7 @@
 
 using namespace boost::accumulators;
 
+namespace Outlier{
 Calculator::~Calculator() {}
 Calculator::Calculator() {}
 
@@ -70,4 +71,5 @@ void Calculator::write_to_file(std::vector<double>& data, std::string file_name)
     for(std::vector<double>::const_iterator i = data.begin(); i != data.end(); ++i) {
         f << *i << '\n';
     }
+}
 }

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <numeric>
 #include <algorithm>
-
+namespace Outlier{
 template< typename T>
 void print(std::vector<T>  data) {
     std::cout << "--\n";
@@ -36,6 +36,6 @@ std::vector<unsigned int> order(std::vector<T>& data) {
     std::sort(tmp.begin(), tmp.end(), comparator);
     return tmp;
 }
-
+}
 
 #endif

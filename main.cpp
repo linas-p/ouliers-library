@@ -5,6 +5,7 @@
 #include <Bolshev.hpp>
 
 using namespace std;
+using namespace Outlier;
 
 params_generate test_smth() {
 
@@ -23,6 +24,14 @@ int main()
 {
     params_generate p = test_smth();
     Calculator cal;
+    Method<double> *a = new Method<double>;
+    Bolhsev_method<double> *b = new Bolhsev_method<double>;
+    //a->info();
+    //b->info();
+    //cal.func(a);
+    //cal.func(b);
+
+
     unsigned int N = 10000;
     std::vector<Statistics<double>> stt;
     stt.reserve(N);
@@ -32,22 +41,23 @@ int main()
     std::vector<unsigned int> id;
 
 //    for(unsigned int k = 0; k < N; ++k) {
-        cal.generate_sample(p.cfg, sample);
-        //cal.add_outlier(p, sample);
-        cal.normalize(sample);
+    cal.generate_sample(p.cfg, sample);
+    //cal.add_outlier(p, sample);
+    cal.normalize(sample);
 
-        tau = tau_statistics(sample);
-		print(tau);
-        id = order<double>(tau);
-        Statistics<double> st = bolshev_statistics(sample, p.cfg);
-        stt.push_back(st);
-   // }
+    tau = tau_statistics(sample);
+    print(tau);
+    id = order<double>(tau);
+	Statistics<double> st = cal.calculate(b, sample, p.cfg);
+    //Statistics<double> st = bolshev_statistics(sample, p.cfg);
+    //stt.push_back(st);
+    // }
 
     std::cout<<"gen time: "<< ( std::clock() - start ) / (double) CLOCKS_PER_SEC <<'\n';
-    std::cout<<"size: "<< stt.size() <<'\n';
+    //std::cout<<"size: "<< stt.size() <<'\n';
     //mediaprint(id);
-    print(st.statistics);
-    print(st.permutation);
+    //print(st.statistics);
+    //print(st.permutation);
     //cal.write_to_file(sample, "nor.csv");
 
     std::cout << "\n end.";

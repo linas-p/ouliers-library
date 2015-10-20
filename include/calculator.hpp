@@ -17,6 +17,8 @@
 #include <string>
 
 
+namespace Outlier {
+
 struct OutliersException : public std::exception
 {
     std::string s;
@@ -26,6 +28,21 @@ struct OutliersException : public std::exception
         return s.c_str();
     }
 };
+
+template< typename T>
+class Method {
+
+public:
+    virtual void info() {
+        std::cout << "mm\n";
+    }
+
+    virtual Statistics<T>  calculate_statistics(std::vector<T> & data, params & par) {
+        std::cout << "No method were selected\n";
+    }
+};
+
+
 class Calculator {
 
 public:
@@ -40,6 +57,15 @@ public:
 
     void write_to_file(std::vector<double> &, std::string);
     double rosnerApprox(unsigned int n, unsigned int s, double alpha=0.05, bool two_side=true);
+    void func(Method<double> *xyz) {
+        xyz->info();
+    }
+
+    Statistics<double> calculate(Method<double> *a, std::vector<double> & data, params & par) {
+        Statistics<double> tmp =  a->calculate_statistics(data, par);
+        return tmp;
+    }
+
 
 private:
 
@@ -53,7 +79,7 @@ class Distribution
 
     template<class T>
     void generate_vector(T &generator,
-                           std::vector<double> &res, unsigned int j = 0)
+                         std::vector<double> &res, unsigned int j = 0)
     {
         for(unsigned int i=j; i<res.size(); ++i)
             res[i]=generator();
@@ -71,12 +97,12 @@ public:
     void generate_outlier(unsigned int r, std::vector<double> &rez) {
         if( r > rez.size()) {
             throw OutliersException("Try adding more outlier than sample size. Try " + std::to_string(r) + " on " +
-                              std::to_string(rez.size()));
+                                    std::to_string(rez.size()));
         }
         generate_vector(generator_, rez, rez.size()-r);
     };
 
 
 };
-
+}
 #endif

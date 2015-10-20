@@ -4,7 +4,7 @@
 #include <params.hpp>
 #include <vector>
 
-
+namespace Outlier{
 
 template< typename T>
 T Thomson_transform(T& x, unsigned int n, boost::math::students_t &distribution) {
@@ -28,6 +28,8 @@ std::vector<T> tau_statistics(std::vector<T>& vector) {
 
     //std::cout << "\n";
     return result;
+}
+
 }
 
 #endif

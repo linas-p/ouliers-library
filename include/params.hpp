@@ -3,6 +3,7 @@
 #include <boost/math/distributions/normal.hpp>
 #include <boost/math/distributions/students_t.hpp>
 
+namespace Outlier{
 enum criteria_meth {
 
     ROSNER,
@@ -46,5 +47,5 @@ struct Statistics {
         permutation.reserve(size);
     }
 };
-
+}
 #endif

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <utils.hpp>
-
+using namespace Outlier;
 
 TEST(print, printing) {
 
