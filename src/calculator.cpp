@@ -9,7 +9,7 @@ Calculator::Calculator() {}
 void Calculator::generate_sample(params & par, std::vector<double> &rez) {
     switch(par.distr) {
     case NORMAL:
-        Distribution< boost::normal_distribution<> > dis;
+        Distribution< boost::normal_distribution<>, double > dis;
         dis.generate_sample(par.n, rez);
         break;
     }
@@ -33,7 +33,7 @@ void Calculator::calculate_statistic(std::vector<double> & data, criteria_meth m
 void Calculator::add_outlier(params_generate & par, std::vector<double> &rez) {
     switch(par.cfg.distr) {
     case NORMAL:
-        Distribution< boost::normal_distribution<> > dis(par.delta);
+        Distribution< boost::normal_distribution<>, double > dis(par.delta);
         dis.generate_outlier(par.r, rez);
         break;
     }

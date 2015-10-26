@@ -1,10 +1,25 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
-#include <vector>
+
 #include <iostream>
-#include <numeric>
 #include <algorithm>
-namespace Outlier{
+
+#define unlikely(x)    __builtin_expect((bool)(x), 0)
+
+namespace Outlier {
+
+struct OutliersException : public std::exception
+{
+private:
+    std::string s;
+public:
+    OutliersException(std::string ss) : s(ss) {}
+    ~OutliersException() throw () {} // Updated
+    const char* what() const throw() {
+        return s.c_str();
+    }
+};
+
 template< typename T>
 void print(std::vector<T>  data) {
     std::cout << "--\n";
@@ -36,6 +51,7 @@ std::vector<unsigned int> order(std::vector<T>& data) {
     std::sort(tmp.begin(), tmp.end(), comparator);
     return tmp;
 }
-}
+
+}//end namespace
 
 #endif

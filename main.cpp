@@ -1,6 +1,3 @@
-#include <utils.hpp>
-#include <params.hpp>
-#include <statistics.hpp>
 #include <calculator.hpp>
 #include <Bolshev.hpp>
 
@@ -24,13 +21,7 @@ int main()
 {
     params_generate p = test_smth();
     Calculator cal;
-    Method<double> *a = new Method<double>;
     Bolhsev_method<double> *b = new Bolhsev_method<double>;
-    //a->info();
-    //b->info();
-    //cal.func(a);
-    //cal.func(b);
-
 
     unsigned int N = 10000;
     std::vector<Statistics<double>> stt;
@@ -40,7 +31,7 @@ int main()
     std::vector<double> tau;
     std::vector<unsigned int> id;
 
-//    for(unsigned int k = 0; k < N; ++k) {
+	//    for(unsigned int k = 0; k < N; ++k) {
     cal.generate_sample(p.cfg, sample);
     //cal.add_outlier(p, sample);
     cal.normalize(sample);
@@ -56,8 +47,8 @@ int main()
     std::cout<<"gen time: "<< ( std::clock() - start ) / (double) CLOCKS_PER_SEC <<'\n';
     //std::cout<<"size: "<< stt.size() <<'\n';
     //mediaprint(id);
-    //print(st.statistics);
-    //print(st.permutation);
+    print(st.statistics);
+    print(st.permutation);
     //cal.write_to_file(sample, "nor.csv");
 
     std::cout << "\n end.";
