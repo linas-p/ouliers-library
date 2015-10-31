@@ -1,48 +1,55 @@
+/* Copyright 2015
+ * Linas Petkevicius
+ * Vilnius University
+ * GNU General Public License
+ * */
+
 #include <gtest/gtest.h>
+
 #include <utils.hpp>
 #include <params.hpp>
 #include <calculator.hpp>
 #include <Bolshev.hpp>
 
-using namespace Outlier;
+#include <vector>
+#include <string>
 
-TEST(params, initialisaton){
+using Outlier::params;
+using Outlier::print;
+using Outlier::order;
+using Outlier::permutating;
 
-	params p, p1, p2, p3;
-	p.n = 20;
-	p.s = 3;
-//	EXPECT_EQ(p.check(), true);
-	p1.n = 3;
-	p1.s = 1;
-	//p1.check();
-
-
+TEST(params, initialisaton) {
+    params p, p1, p2, p3;
+    p.n = 20;
+    p.s = 3;
+    EXPECT_EQ(p.check(), true);
+    p1.n = 3;
+    p1.s = 1;
+    EXPECT_EQ(p1.check(), false);
 }
 
 
 TEST(print, printing) {
-
     std::vector<int> v;
     print(v);
     v.push_back(-1);
     print(v);
     std::vector<std::string> s;
-    print(s);
-    s.push_back( "test a" );
-    print(s);
-
+    print<std::string>(s);
+    s.push_back("test a");
+    print<std::string>(s);
 }
 
 TEST(order, ordering) {
-
     std::vector<int> v;
     std::vector<double> w;
 
-    v.push_back( 3 );
-    v.push_back( 1 );
-    v.push_back( 2 );
-    v.push_back( -2 );
-    print( order(v) );
+    v.push_back(3);
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(-2);
+    print(order(v));
 
 
     w.push_back(3.);
@@ -50,22 +57,20 @@ TEST(order, ordering) {
     w.push_back(2.);
     w.push_back(-2.);
     print(order(w));
-
 }
 
 TEST(permutating, permutations) {
-
     std::vector<int> v, w;
-    std::vector<unsigned int> o;
-    v.push_back( 3 );
-    v.push_back( 1 );
-    v.push_back( 2 );
-    v.push_back( -2 );
+    std::vector<int> o;
+    v.push_back(3);
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(-2);
     o = order(v);
-    print( v );
-    print( order(v) );
+    print(v);
+    print(order(v));
     w = permutating(v, o);
-    print( w );
+    print(w);
 }
 
 /*
@@ -83,15 +88,15 @@ TEST(main, all) {
 	Calculator cal;
     Bolhsev_method<double> *b = new Bolhsev_method<double>;
 
-    unsigned int N = 10000;
+    int N = 10000;
     std::vector<Statistics<double>> stt;
     stt.reserve(N);
     std::clock_t start = std::clock();
     std::vector<double> sample;
     std::vector<double> tau;
-    std::vector<unsigned int> id;
+    std::vector<int> id;
 
-	//    for(unsigned int k = 0; k < N; ++k) {
+	//    for(int k = 0; k < N; ++k) {
     cal.generate_sample(p.cfg, sample);
     //cal.add_outlier(p, sample);
     cal.normalize(sample);

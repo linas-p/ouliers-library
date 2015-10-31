@@ -16,13 +16,14 @@ namespace Outlier {
 
 
 
-template< typename T>
 class Method {
 
 public:
 
-    virtual Statistics<T>  calculate_statistics(std::vector<T> & data, params & par) {
-        throw OutliersException("No method were selected to calculate statistics\n");
+    virtual Statistics  calculate_statistics(std::vector<double> & data, params & par) {
+		Statistics tmp;
+    	//throw OutliersException("No method were selected to calculate statistics\n");
+		return tmp;
     }
 };
 
@@ -40,10 +41,10 @@ public:
     void normalize(std::vector<double>&);
 
     void write_to_file(std::vector<double> &, std::string);
-    double rosnerApprox(unsigned int n, unsigned int s, double alpha=0.05, bool two_side=true);
+    double rosnerApprox(int n, int s, double alpha=0.05, bool two_side=true);
 
-    Statistics<double> calculate(Method<double> *a, std::vector<double> & data, params & par) {
-        Statistics<double> tmp =  a->calculate_statistics(data, par);
+    Statistics calculate(Method *a, std::vector<double> & data, params & par) {
+        Statistics tmp =  a->calculate_statistics(data, par);
         return tmp;
     }
 

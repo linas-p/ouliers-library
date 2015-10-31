@@ -8,7 +8,7 @@
 
 namespace Outlier {
 
-struct OutliersException : public std::exception
+/*struct OutliersException : public std::exception
 {
 private:
     std::string s;
@@ -18,7 +18,7 @@ public:
     const char* what() const throw() {
         return s.c_str();
     }
-};
+};*/
 
 template< typename T>
 void print(std::vector<T>  data) {
@@ -30,7 +30,7 @@ void print(std::vector<T>  data) {
 }
 
 template< typename T>
-std::vector<T> permutating( std::vector<T> & input, std::vector< unsigned int> &permutation) {
+std::vector<T> permutating( std::vector<T> & input, std::vector<int> &permutation) {
     std::vector<T> m(input.size());
     int i = 0;
     for( auto &k :permutation) {
@@ -41,9 +41,10 @@ std::vector<T> permutating( std::vector<T> & input, std::vector< unsigned int> &
     return m;
 }
 
+
 template< typename T>
-std::vector<unsigned int> order(std::vector<T>& data) {
-    std::vector<unsigned int> tmp(data.size());
+std::vector<int> order(std::vector<T>& data) {
+    std::vector<int> tmp(data.size());
     std::iota(tmp.begin(), tmp.end(), 0);
     auto comparator = [&data](T a, T b) {
         return data[a] < data[b];

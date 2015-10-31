@@ -39,7 +39,7 @@ void Calculator::add_outlier(params_generate & par, std::vector<double> &rez) {
     }
 }
 
-double Calculator::rosnerApprox(unsigned int n, unsigned int s, double alpha, bool two_side) {
+double Calculator::rosnerApprox(int n, int s, double alpha, bool two_side) {
     double p = alpha/(n-s+1);
     if(two_side) {
         p /= 2;
@@ -54,7 +54,7 @@ double Calculator::rosnerApprox(unsigned int n, unsigned int s, double alpha, bo
 void Calculator::normalize(std::vector<double> & data) {
     accumulator_set< double, features<tag::mean, tag::variance > > acc;
     acc = std::for_each( data.begin(), data.end(), acc );
-    unsigned int n = data.size();
+    int n = data.size();
     double mu = mean(acc);
     double sd = sqrt(variance(acc)*n/(n-1));
     for( auto &dat : data) {

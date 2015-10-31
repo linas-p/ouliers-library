@@ -20,16 +20,16 @@ enum distribution_type {
 };
 
 struct params {
-    unsigned int n;
+    int n;
     criteria_meth method;
     distribution_type distr;
-    unsigned int s;
+    int s;
     bool two_side;
     params(): method(BAGPET), distr(NORMAL), two_side(true) {}
     bool check() {
         bool params_good = (n > 3 && s< n-2);
         if(!params_good) {
-            throw OutliersException("Parameters n and s not initialized! or n < 4! or s > n-1!");
+            //throw OutliersException("Parameters n and s not initialized! or n < 4! or s > n-1!");
         }
         return params_good;
     }
@@ -37,26 +37,25 @@ struct params {
 
 struct params_generate {
     params cfg;
-    unsigned int r;
+    int r;
     double delta;
     params_generate(): r(0), delta(0.) {}
     bool check() {
         bool params_good;
         params_good = cfg.check() && (r <= cfg.s);
         if(!params_good) {
-            throw OutliersException("Parameter r(outliers number) is set bigger than limit s!");
+            //throw OutliersException("Parameter r(outliers number) is set bigger than limit s!");
         }
         return params_good;
     }
 };
 
-template< typename T>
 struct Statistics {
-    std::vector<T> statistics;
-    std::vector<unsigned int> permutation;
+    std::vector<double> statistics;
+    std::vector<int> permutation;
 
     Statistics() {}
-    Statistics(unsigned int size) {
+    Statistics(int size) {
         statistics.reserve(size);
         permutation.reserve(size);
     }
