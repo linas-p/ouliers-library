@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME} "${LIB_NAME}")
 
 
 ## testing
-set (GTEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/googletest")
+set (GTEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib/googletest/googletest")
 add_subdirectory (${GTEST_DIR})
 include_directories ("${GTEST_DIR}/include")
 set (TEST_EXEC "${LIB_NAME}_test")

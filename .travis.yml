@@ -3,6 +3,9 @@ language: cpp
 compiler:
   - gcc
 
+install:
+  - git clone --depth=50 https://github.com/google/googletest.git lib/googletest
+
 before_script:
   - mkdir build
   - cd build
