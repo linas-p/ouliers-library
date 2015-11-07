@@ -7,7 +7,7 @@ before_install:
 
 install:
   - git clone --depth=50 https://github.com/google/googletest.git lib/googletest
-  - sudo apt-get install -qq g++-4.8 libboost-math-dev
+  - sudo apt-get install -qq g++-4.8 libboost-math-dev libboost-random-dev
   - export CXX="g++-4.8"
   - CC="gcc-4.8"
   - echo ${CXX}
