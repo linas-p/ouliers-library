@@ -8,7 +8,6 @@ set (SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set (INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 
-enable_testing()
 include_directories( "${SRC_DIR}" "${INC_DIR}" )
 
 file (GLOB_RECURSE SRC_FILES "${SRC_DIR}/*.cpp")
@@ -31,5 +30,6 @@ file (GLOB_RECURSE TEST_SRC_FILES "${TEST_SRC_DIR}/*.cpp")
 add_executable ("${TEST_EXEC}" ${TEST_SRC_FILES})
 target_link_libraries ("${TEST_EXEC}" "${LIB_NAME}" "gtest" "gtest_main")
 
-
-
+include(CTest)
+enable_testing()
+add_test(unit ${PROJECT_BINARY_DIR}/${TEST_EXEC})
