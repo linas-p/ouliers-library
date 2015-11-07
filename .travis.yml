@@ -5,6 +5,7 @@ compiler:
 
 install:
   - git clone --depth=50 https://github.com/google/googletest.git lib/googletest
+  - sudo apt-get install -qq g++-4.9
   - export CXX="g++-4.9"
   - CC="gcc-4.9"
   - echo ${CXX}
