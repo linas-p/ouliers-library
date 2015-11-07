@@ -1,8 +1,9 @@
 #include <Bolshev.hpp>
 
-namespace Outlier{
-Statistics  Outlier::Bolhsev_method::calculate_statistics(std::vector<double> & data, params & par) {
-    std::cout << "Bolshev \n";
+namespace Outlier {
+Statistics  Outlier::Bolhsev_method::calculate_statistics(std::vector<double>& \
+        data, params & par) {
+	//  std::cout << "Bolshev \n";
     int s = par.s;
     Statistics sta(s);
     std::vector<double> tau = tau_statistics(data);

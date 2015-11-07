@@ -3,36 +3,37 @@
 
 namespace Outlier {
 
-double Thomson_transform(const double x, const int n, boost::math::students_t &distribution) {
-    double result = n * boost::math::cdf(complement(distribution, x*sqrt(n/(n+1-pow(x,2)))));
+double Thomson_transform(const double x, const int n,  \
+                         boost::math::students_t &distribution) {
+    double result = n * boost::math::cdf(complement(distribution, \
+                                         x*sqrt(n/(n+1-pow(x,2)))));
     return result;
 }
 
 
 bool Thomson_transform_checking(const std::vector<double> data) {
-    bool valid = true;
-    int n = data.size();
-    for(auto k: data) {
-        if(pow(k,2) >= (n-1)) {
-            valid = false;
-            //throw OutliersException("Data is not normalized!");
-        }
+    if( data.size() == 0 ) {
+        return false;
     }
-    return valid;
+
+    auto is_positive = [](double const k, int const n) {
+        return (n > pow(k,2)+1);
+    };
+    return std::all_of(std::begin(data), std::end(data), std::bind(is_positive,\
+                       std::placeholders::_1, data.size()));
 }
 
-std::vector<double> tau_statistics(const std::vector<double> & vector, bool check) {
+std::vector<double> tau_statistics(const std::vector<double> & vector, \
+                                   bool check) {
     unlikely(check) ? Thomson_transform_checking(vector):0;
 
     int n = vector.size();
     int df = n-2;
     std::vector<double> result(n, 0.);
     boost::math::students_t dist(df);
-    int i = 0;
-    for(auto &k: vector) {
-        result[i] = Thomson_transform(k, df, dist);
-        ++i;
-    }
+    std::transform(vector.begin(), vector.end(), result.begin(), \
+                   std::bind(Thomson_transform, std::placeholders::_1,\
+                             df, dist));
 
     return result;
 }

@@ -8,17 +8,6 @@
 
 namespace Outlier {
 
-/*struct OutliersException : public std::exception
-{
-private:
-    std::string s;
-public:
-    OutliersException(std::string ss) : s(ss) {}
-    ~OutliersException() throw () {} // Updated
-    const char* what() const throw() {
-        return s.c_str();
-    }
-};*/
 
 template< typename T>
 void print(std::vector<T>  data) {
@@ -30,7 +19,8 @@ void print(std::vector<T>  data) {
 }
 
 template< typename T>
-std::vector<T> permutating( std::vector<T> & input, std::vector<int> &permutation) {
+std::vector<T> permutating( std::vector<T> & input,\
+                            std::vector<int> &permutation) {
     std::vector<T> m(input.size());
     int i = 0;
     for( auto &k :permutation) {

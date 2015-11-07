@@ -25,7 +25,7 @@ struct params {
     distribution_type distr;
     int s;
     bool two_side;
-    params(): method(BAGPET), distr(NORMAL), two_side(true) {}
+    params(int _n, int _s): n(_n), method(BAGPET), distr(NORMAL), s(_s), two_side(true) {}
     bool check() {
         bool params_good = (n > 3 && s< n-2);
         if(!params_good) {
@@ -39,7 +39,7 @@ struct params_generate {
     params cfg;
     int r;
     double delta;
-    params_generate(): r(0), delta(0.) {}
+    params_generate(int n, int s, int r, double d): cfg(n,s), r(r), delta(d) {}
     bool check() {
         bool params_good;
         params_good = cfg.check() && (r <= cfg.s);

@@ -18,60 +18,52 @@ using Outlier::params;
 using Outlier::print;
 using Outlier::order;
 using Outlier::permutating;
+using Outlier::Thomson_transform_checking;
 
 TEST(params, initialisaton) {
-    params p, p1, p2, p3;
-    p.n = 20;
-    p.s = 3;
+    params p(20, 3), p1(3, 1);
     EXPECT_EQ(p.check(), true);
-    p1.n = 3;
-    p1.s = 1;
     EXPECT_EQ(p1.check(), false);
 }
 
 
-TEST(print, printing) {
-    std::vector<int> v;
+TEST(print, print_usage) {
+    std::vector<int> v, v2 = {-4};
     print(v);
-    v.push_back(-1);
-    print(v);
-    std::vector<std::string> s;
+    print(v2);
+    std::vector<std::string> s, s1 = {"a", "b", "c"};
     print<std::string>(s);
-    s.push_back("test a");
-    print<std::string>(s);
+    print<std::string>(s1);
 }
 
 TEST(order, ordering) {
-    std::vector<int> v;
-    std::vector<double> w;
+    std::vector<int> v, v1 = {3,1,2,-2};
+    std::vector<double> w = {3., 1., 2., -2.};
 
-    v.push_back(3);
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(-2);
     print(order(v));
-
-
-    w.push_back(3.);
-    w.push_back(1.);
-    w.push_back(2.);
-    w.push_back(-2.);
+    print(order(v1));
     print(order(w));
 }
 
 TEST(permutating, permutations) {
-    std::vector<int> v, w;
+    std::vector<int> w, v= {3, 1, 2, -2};
     std::vector<int> o;
-    v.push_back(3);
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(-2);
     o = order(v);
     print(v);
     print(order(v));
     w = permutating(v, o);
     print(w);
 }
+
+TEST(Thomson_transform_checking, usage) {
+
+    std::vector<double> p = {1,1,1,1}, p1 = {1,1,1,10}, p2;
+    EXPECT_EQ(Thomson_transform_checking(p), true);
+    EXPECT_EQ(Thomson_transform_checking(p1), false);
+    EXPECT_EQ(Thomson_transform_checking(p2), false);
+
+}
+
 
 /*
 TEST(main, all) {
