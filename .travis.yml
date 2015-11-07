@@ -13,10 +13,16 @@ install:
   - CC="gcc-4.8"
   - echo ${CXX}
   - ${CXX} --version
+  - sudo pip install cpp-coveralls
 
 before_script:
   - mkdir build
   - cd build
   - cmake ..
 
-script: make
+script: 
+  - make
+  - ./calculating_test
+
+after_success:
+  - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*"
