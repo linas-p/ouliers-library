@@ -1,7 +1,9 @@
 language: cpp
+compiler: g++
 
-compiler:
-  - gcc
+before_install:
+- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+- sudo apt-get update -qq
 
 install:
   - git clone --depth=50 https://github.com/google/googletest.git lib/googletest
