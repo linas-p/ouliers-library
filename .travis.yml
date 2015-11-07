@@ -5,6 +5,10 @@ compiler:
 
 install:
   - git clone --depth=50 https://github.com/google/googletest.git lib/googletest
+  - export CXX="g++-4.9"
+  - CC="gcc-4.9"
+  - echo ${CXX}
+  - ${CXX} --version
 
 before_script:
   - mkdir build
