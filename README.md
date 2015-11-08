@@ -1,5 +1,7 @@
+[![Build Status](https://travis-ci.org/linas-p/outliers-library.svg?branch=master)](https://travis-ci.org/linas-p/outliers-library)
+
 # ouliers-library
-Library for unknown number of outliers detection.
+Library for unknown number of outliers detection. [In progress!]
 
 Outlier detection when outlier number are unknown were my master thesis topic. So I finaly prepared implement it in lower level so this imlementation(in c++) will be more flexibal and faster R. 
 
