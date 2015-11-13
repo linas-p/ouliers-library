@@ -6,19 +6,23 @@
 
 #include <gtest/gtest.h>
 
-#include <utils.hpp>
-#include <params.hpp>
-#include <calculator.hpp>
-#include <Bolshev.hpp>
+#include <Outlier/utils.hpp>
+#include <Outlier/params.hpp>
+#include <Outlier/calculator.hpp>
+#include <Outlier/Bolshev.hpp>
 
 #include <vector>
 #include <string>
+
 
 using Outlier::params;
 using Outlier::print;
 using Outlier::order;
 using Outlier::permutating;
 using Outlier::Thomson_transform_checking;
+using Outlier::get_mean;
+using Outlier::MeanVar;
+const double epsilon = 1e-4;
 
 TEST(params, initialisaton) {
     params p(20, 3), p1(3, 1);
@@ -56,12 +60,34 @@ TEST(permutating, permutations) {
 }
 
 TEST(Thomson_transform_checking, usage) {
-
     std::vector<double> p = {1,1,1,1}, p1 = {1,1,1,10}, p2;
-    EXPECT_EQ(Thomson_transform_checking(p), true);
-    EXPECT_EQ(Thomson_transform_checking(p1), false);
-    EXPECT_EQ(Thomson_transform_checking(p2), false);
+    EXPECT_EQ(Thomson_transform_checking(&p), true);
+    EXPECT_EQ(Thomson_transform_checking(&p1), false);
+    EXPECT_EQ(Thomson_transform_checking(&p2), false);
+}
 
+TEST(get_mean, usage) {
+    std::vector<double> p = {1,1,1,1}, p1 = {1,1,1,10}, p2;
+    EXPECT_EQ(Thomson_transform_checking(&p), true);
+    EXPECT_EQ(Thomson_transform_checking(&p1), false);
+    EXPECT_EQ(Thomson_transform_checking(&p2), false);
+
+    //  print(p);
+    //  MeanVar m = get_mean(&p);
+    print(p1);
+    MeanVar m1 = get_mean(&p1);
+    std::cout << "-> " << m1.mean << " " << m1.get_sd() << " " \
+              << m1.var << std::endl;
+
+
+    std::vector<double> m(20);
+    std::iota(m.begin(), m.end(), 1);
+    MeanVar m4 = get_mean(&m);
+    EXPECT_NEAR(m4.mean, 10.5, epsilon);
+//    EXPECT_NEAR(m4.var, 15.1875, epsilon);
+    EXPECT_NEAR(m4.get_sd(), 5.91608, epsilon);
+    //  print(p2);
+    //  MeanVar m2 = get_mean(&p2);
 }
 
 

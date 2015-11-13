@@ -1,12 +1,17 @@
-#include <calculator.hpp>
+/* Copyright 2015
+ * Linas Petkevicius
+ * Vilnius University
+ * GNU General Public License
+ * */
+#include <Outlier/calculator.hpp>
 
 using namespace boost::accumulators;
 
-namespace Outlier{
+namespace Outlier {
 Calculator::~Calculator() {}
 Calculator::Calculator() {}
 
-void Calculator::generate_sample(params & par, std::vector<double> &rez) {
+void Calculator::generate_sample(const params & par, std::vector<double> *rez) {
     switch(par.distr) {
     case NORMAL:
         Distribution< boost::normal_distribution<>, double > dis;
@@ -14,7 +19,7 @@ void Calculator::generate_sample(params & par, std::vector<double> &rez) {
         break;
     }
 }
-void Calculator::calculate_statistic(std::vector<double> & data, criteria_meth met) {
+void Calculator::calculate_statistic(std::vector<double> * data, criteria_meth met) {
 
     switch(met) {
     case BOLSHEV:
@@ -30,7 +35,7 @@ void Calculator::calculate_statistic(std::vector<double> & data, criteria_meth m
 }
 
 
-void Calculator::add_outlier(params_generate & par, std::vector<double> &rez) {
+void Calculator::add_outlier(const params_generate & par, std::vector<double> *rez) {
     switch(par.cfg.distr) {
     case NORMAL:
         Distribution< boost::normal_distribution<>, double > dis(par.delta);
@@ -57,10 +62,10 @@ void Calculator::normalize(std::vector<double> & data) {
     int n = data.size();
     double mu = mean(acc);
     double sd = sqrt(variance(acc)*n/(n-1));
-    for( auto &dat : data) {
-        dat = (dat-mu)/sd;
-    }
-
+    auto normalize = [mu, sd](double x) {
+        return (x-mu)/sd;
+    };
+    std::transform(data.begin(), data.end(), data.begin(), normalize);
     //std::cout << "Mean:   " << mu << " sd: " << sd << std::endl;
 
 }
@@ -72,4 +77,13 @@ void Calculator::write_to_file(std::vector<double>& data, std::string file_name)
         f << *i << '\n';
     }
 }
+
+MeanVar get_mean(std::vector<double> * data, int subset) {
+    assert(subset < data->size());
+    accumulator_set< double, features<tag::mean, tag::variance > > acc;
+    acc = std::for_each( data->begin(), data->end()-subset, acc);
+    MeanVar mu_sd(mean(acc), variance(acc), data->size());
+    return mu_sd;
 }
+
+}  // namespace Outlier
