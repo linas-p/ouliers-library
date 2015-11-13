@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/linas-p/outliers-library.svg?branch=master)](https://travis-ci.org/linas-p/outliers-library)
-
-[![Coverage Status](https://coveralls.io/repos/linas-p/outliers-library/badge.svg?branch=master&service=github)](https://coveralls.io/github/linas-p/outliers-library?branch=master)
+[![Build Status](https://travis-ci.org/linas-p/outliers-library.svg?branch=master)](https://travis-ci.org/linas-p/outliers-library) [![Coverage Status](https://coveralls.io/repos/linas-p/outliers-library/badge.svg?branch=master&service=github)](https://coveralls.io/github/linas-p/outliers-library?branch=master)
 
 # ouliers-library
 Library for unknown number of outliers detection. [In progress!]
