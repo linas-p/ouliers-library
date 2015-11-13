@@ -24,6 +24,7 @@ before_script:
 script: 
   - make
   - ./calculating_test
+  - ..
 
 after_success:
-  - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*"
+  - coveralls -E ".*external.*" -E ".*CMakeFiles.*" 
